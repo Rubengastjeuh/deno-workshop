@@ -1,8 +1,7 @@
-export function add(a: number, b: number): number {
-  return a + b;
-}
+import {Hono} from "https://deno.land/x/hono@v3.11.8/mod.ts";
+import postController from "./PostController.ts";
 
-// Learn more at https://deno.land/manual/examples/module_metadata#concepts
-if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
-}
+const app = new Hono({strict:false}).basePath("/api")
+
+app.route("/posts",postController);
+Deno.serve(app.fetch);
